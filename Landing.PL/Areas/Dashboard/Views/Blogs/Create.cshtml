@@ -1,0 +1,51 @@
+﻿@model BlogFromVM
+
+
+@section Header {
+     Blogs
+}
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Create Blog</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form asp-controller="Blogs" asp-action="Create">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Content"></label>
+                    <input asp-for="Content" class="form-control textarea" placeholder="Enter Blog">
+                </div>
+               
+                <div class="form-group">
+                    <label asp-for="SelectItemId"></label>
+                    <select asp-for="SelectItemId" placeholder="Enter Flaticon" asp-items="Model.ItemList">
+                    </select>
+                </div>
+
+
+
+
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index" class="btn btn-primary">Back To List</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/mu9ixsvggd9zw9yn47gmbp6yjtz6n237ile1t45zm1y1s3r2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+
+        tinymce.init({
+            selector: '.textarea',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
+}

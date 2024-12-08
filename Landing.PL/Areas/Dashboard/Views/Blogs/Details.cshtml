@@ -1,0 +1,25 @@
+﻿@model BlogDetail
+
+@section Header {
+        Details of Blog
+}
+
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Details Blog</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form>
+            <ul>
+                <li>Content is : @Html.Raw(Model.Content)</li>
+                <li>Item is : @Model.Item.Name</li>
+            </ul>
+
+
+        </form>
+    </div>
+    <a asp-action="Index" class="btn btn-primary">Back To List</a>
+</div>

@@ -1,0 +1,118 @@
+﻿<div class="container-fluid bg-secondary py-5">
+    <div class="container py-5">
+        <div class="row align-items-center py-4">
+            <div class="col-md-6 text-center text-md-left">
+                <h1 class="mb-4 mb-md-0 text-primary text-uppercase">Our Services</h1>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index">Home</a>
+                    <i class="fas fa-angle-double-right text-primary mx-2"></i>
+                    <a class="btn btn-outline-primary disabled" href="">Our Services</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Services Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 pr-lg-5">
+                <h6 class="text-primary font-weight-normal text-uppercase mb-3">Our Awesome Services</h6>
+                <h1 class="mb-4 section-title">Awesome Interior Designing Services For Your Home</h1>
+                <p>We have many wonderful and distinctive designs at excellent prices, great offers, and excellent services.</p>
+                
+            </div>
+            <div class="col-lg-6 p-0 pt-5 pt-lg-0">
+                <div class="owl-carousel service-carousel position-relative">
+                    @foreach (var item in ViewBag.designs)
+                    {
+                        <div class="d-flex flex-column text-center bg-light mx-3 p-4">
+                            <h3 class="flaticon-@item.Flaticon.Name display-3 font-weight-normal text-primary mb-3"></h3>
+                            <h5 class="mb-3">@item.Name</h5>
+
+                            <p>@Html.Raw(item.Description)</p>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services End -->
+<!-- Features Start -->
+<div class="container-fluid bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mt-5 py-5 pr-lg-5">
+                <h6 class="text-primary font-weight-normal text-uppercase mb-3">Why Choose Us?</h6>
+                <h1 class="mb-4 section-title">25+ Years Experience In The Interior Design Industry</h1>
+                <p class="mb-4">We have a lot of experience in this field, in addition to providing the best designs for homes and others.</p>
+                <ul class="list-inline">
+                    <li><h5><i class="far fa-check-square text-primary mr-3"></i>25+ Years Experience</h5></li>
+                    <li><h5><i class="far fa-check-square text-primary mr-3"></i>Best Interior Design</h5></li>
+                    <li><h5><i class="far fa-check-square text-primary mr-3"></i>Customer Satisfaction</h5></li>
+                </ul>
+                
+            </div>
+            <div class="col-lg-5">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100 overflow-hidden">
+                    <img class="h-100" src="~/img/feature.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features End -->
+<!-- Projects Start -->
+
+<!-- Projects End -->
+<!-- Team Start -->
+
+<!-- Team End -->
+<!-- Testimonial Start -->
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <!-- عمود الصورة على الجهة اليسرى -->
+            <div class="col-md-5">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100 overflow-hidden">
+                    <img class="h-100" src="~/img/testimonial.jpg" alt="">
+                </div>
+            </div>
+
+            <!-- عمود النص على الجهة اليمنى -->
+            <div class="col-md-7 py-5 pl-md-5">
+                <h6 class="text-primary font-weight-normal text-uppercase mb-3 pt-5">Testimonial</h6>
+                <h1 class="mb-4 section-title">What Our Clients Say</h1>
+
+                <!-- زر إضافة Feedback -->
+                <div class="mb-4">
+                    <a href="@Url.Action("Index", "Feedbackes")" class="btn btn-primary">Add Feedback</a>
+                </div>
+
+                <div class="owl-carousel testimonial-carousel position-relative pb-5 mb-md-5">
+                    @foreach (var item in ViewBag.feedback)
+                    {
+                        <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <img class="img-fluid rounded-circle" src="~/fileProfile/images/@item.Profile.ProfilePictureUrl" style="width: 60px; height: 60px;" alt="">
+                                <div class="ml-3">
+                                    <h5>@item.Profile.Name</h5>
+                                    <i>@item.Job</i>
+                                </div>
+                            </div>
+                            <p class="m-0">@item.Content</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonial End -->

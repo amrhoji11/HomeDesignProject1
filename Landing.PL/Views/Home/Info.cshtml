@@ -1,0 +1,46 @@
+﻿@model Item
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">@Model.Name Details</h1>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@Model.Name</h2>
+        </div>
+        <div class="card-body">
+            <h4>Description:</h4>
+            <p>@Html.Raw(Model.Description)</p>
+
+            <!-- Image Section -->
+            <div class="mb-4 text-center">
+                <h5>Image:</h5>
+                @if (!string.IsNullOrEmpty(Model.ImageName))
+                {
+                    <img src="~/files/images/@Model.ImageName" alt="Item Image" class="img-fluid rounded" style="max-width: 40%; height: auto;">
+                }
+                else
+                {
+                    <p>No image available for this item.</p>
+                }
+            </div>
+
+            <!-- Design Section -->
+            <div class="mb-4">
+                <h5>Design:</h5>
+                @if (Model.Design != null)
+                {
+                    <p>Associated Design Name: <strong>@Model.Design.Name</strong></p>
+                }
+                else
+                {
+                    <p>No design associated with this item.</p>
+                }
+            </div>
+
+            <!-- Optional: Add a back button -->
+            <div class="text-center">
+                <a href="javascript:history.back()" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>

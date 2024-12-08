@@ -1,0 +1,54 @@
+﻿@foreach (var comment in ViewBag.Comment)
+{
+    <div class="media mb-4">
+        <img src="~/fileProfile/images/@comment.Profile.ProfilePictureUrl" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+        <div class="media-body">
+            <h6>@comment.Name <small><i>@comment.DatePosted.ToString("dd MMM yyyy hh:mm tt")</i></small></h6>
+            <p>@comment.Content</p>
+
+            <!-- عرض الردود داخل كل تعليق -->
+            @if (comment.Replies != null && comment.Replies.Count>0)
+            {
+                <div class="media mt-4 ml-3">
+                    @foreach (var reply in comment.Replies)
+                    {
+                        <div class="media mt-3">
+                            <img src="~/fileProfile/images/@reply.Profile.ProfilePictureUrl" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                            <div class="media-body">
+                                <h6>@reply.Name <small><i>@reply.DatePosted.ToString("dd MMM yyyy hh:mm tt")</i></small></h6>
+                                <p>@reply.Content</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <!-- نموذج إضافة رد -->
+            <div class="mt-3">
+                <form method="post" action="@Url.Action("ReplyToComment", "Home")">
+                    <input type="hidden" name="parentCommentId" value="@comment.Id" />
+                    <div class="form-group">
+                        <textarea name="Content" class="form-control" placeholder="Write your reply..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Post Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<div class="mt-4 text-center">
+    <a href="@Url.Action("BlogDetail", "Home")" class="btn btn-lg btn-warning text-white shadow-lg border-0 hover-effect">Back to Comments</a>
+</div>
+
+<style>
+    .hover-effect:hover {
+        background-color: #ff5733; /* لون عند التمرير */
+        color: #fff; /* اللون النص عند التمرير */
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-warning {
+        background-color: #f39c12; /* لون الخلفية الزرقاء المميزة */
+        border-radius: 12px; /* حواف مستديرة */
+    }
+</style>

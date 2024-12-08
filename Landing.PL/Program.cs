@@ -1,6 +1,9 @@
-using Landing.PL.Data;
+using Landing.DAL.Data;
+using Landing.DAL.Models;
+using Landing.PL.Mapping;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Landing.PL
 {
@@ -12,13 +15,27 @@ namespace Landing.PL
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<ApplecationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<ApplecationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplecationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(30); // ??? ?????? ??????
+                options.SlidingExpiration = true; // ????? ???????? ??? ?? ???????
+                options.LoginPath = "/Account/Login"; // ???? ????? ??????
+                options.LogoutPath = "/Account/Logout"; // ???? ????? ??????
+            });
+
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
             var app = builder.Build();
 
@@ -39,6 +56,7 @@ namespace Landing.PL
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -47,8 +65,15 @@ namespace Landing.PL
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Register}/{id?}");
+
+           
+
+
             app.MapRazorPages();
+
+           
+
 
             app.Run();
         }

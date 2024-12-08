@@ -1,0 +1,79 @@
+﻿@model IEnumerable<UserViewModel>
+
+@section Style {
+    <link href="~/lib/datatables/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+
+}
+@section Header {
+    All Users
+}
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">All Users</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table class="table table-bordered" id="yourTableId" class="display" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Operations</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.UserName</td>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @string.Join(",",item.Roles)
+                            </td>
+                            <td>
+                               <a asp-controller="Users" asp-action="EditUserRole" asp-route-id="@item.Id">Change Role</a> 
+                            </td
+                           
+
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">«</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script src="~/lib/datatables/js/datatables.bootstrap4.min.js"></script>
+
+
+
+   
+
+
+
+}

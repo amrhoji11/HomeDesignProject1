@@ -1,0 +1,87 @@
+﻿@model Massage
+
+<div class="container-fluid bg-secondary py-5">
+    <div class="container py-5">
+        <div class="row align-items-center py-4">
+            <div class="col-md-6 text-center text-md-left">
+                <h1 class="mb-4 mb-md-0 text-primary text-uppercase">Contact Us</h1>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index">Home</a>
+                    <i class="fas fa-angle-double-right text-primary mx-2"></i>
+                    <a class="btn btn-outline-primary disabled" href="">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="d-flex flex-column justify-content-center bg-primary h-100 p-5">
+                    @if (ViewBag.info is not null)
+                    {
+                        string infoName = "";
+
+                        foreach (var item in ViewBag.info)
+                        {
+                            if (item.Name.Equals("Our Office", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Office", StringComparison.OrdinalIgnoreCase))
+                            {
+                                infoName = "office";
+                            }
+                            else if (item.Name.Equals("Our Email", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email", StringComparison.OrdinalIgnoreCase))
+                            {
+                                infoName = "email";
+                            }
+
+                            else if (item.Name.Equals("Call Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Call", StringComparison.OrdinalIgnoreCase))
+                            {
+                                infoName = "telephone";
+                            }
+                            <div class="d-inline-flex border border-secondary p-4 mb-4">
+                                <h1 class="flaticon-@infoName font-weight-normal text-secondary m-0 mr-3"></h1>
+                                <div class="d-flex flex-column">
+                                    <h4>@item.Name</h4>
+                                    <p class="m-0 text-white">@Html.Raw(@item.Content)</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                    
+                    
+                </div>
+            </div>
+            <div class="col-lg-7 mb-5 my-lg-5 py-5 pl-lg-5">
+                <div class="contact-form">
+                    <div id="success"></div>
+
+                    @if (ViewBag.Profile != null)
+                    {
+                        <form action="@Url.Action("Contact", "Home")" method="post">
+                            <input type="hidden" name="PProfileId" value="@ViewBag.Profile.Id" />
+
+                            <div class="control-group">
+                                <input type="text" class="form-control p-4" name="YourName" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name">
+                            </div>
+                            <div class="control-group">
+                                <textarea class="form-control p-4" rows="6" name="YourMassage" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary py-3 px-5" type="submit" id="sendMessageButton">Send Message</button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="text-danger">You must be logged in to send a message.</p>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

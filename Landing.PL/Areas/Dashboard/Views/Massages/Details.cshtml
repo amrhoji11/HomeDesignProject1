@@ -1,0 +1,26 @@
+﻿@model Landing.PL.Areas.Dashboard.ViewModel.MassageDetails
+
+@section Header {
+        Details of Massage
+}
+
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Details Item @Model.YourName Massage </h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form>
+            <ul>
+                <li>Name is : @Model.YourName</li>
+                <li>Massage is : @Model.YourMassage </li>
+                <li>Profile is : @Model.Profile.Name</li>
+            </ul>
+
+
+        </form>
+    </div>
+    <a asp-action="Index" class="btn btn-primary">Back To List</a>
+</div>

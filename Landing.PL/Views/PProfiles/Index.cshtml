@@ -1,0 +1,133 @@
+﻿@model Landing.PL.ViewModel.ProfileVM
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">@Model.Name's Profile</h2>
+
+    <div class="row justify-content-center">
+        <!-- صورة المستخدم -->
+        <div class="col-md-4 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <!-- عرض الصورة بشكل دائري -->
+                    <img src="@Url.Content("~/fileProfile/images/" + Model.ProfilePictureUrl)" 
+                         alt="Profile Picture" 
+                         class="img-fluid rounded-circle mb-3" 
+                         style="width: 200px; height: 200px; object-fit: cover;" />
+
+                    <form enctype="multipart/form-data" method="post" asp-action="EditProfilePicture">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label asp-for="ProfilePicture" class="d-block">Upload New Profile Picture</label>
+                            <input type="file" name="ProfilePicture" id="ProfilePicture" class="form-control mb-3" />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Change Picture</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- بيانات المستخدم -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <!-- تعديل الاسم -->
+                    <form method="post" asp-action="EditName" id="editNameForm">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" readonly />
+                                <a href="javascript:void(0);" class="btn btn-sm btn-warning" id="editName">Edit</a>
+                            </div>
+                        </div>
+
+                        <!-- زر حفظ التعديلات الخاص بالاسم -->
+                        <button type="submit" class="btn btn-success btn-block mt-3" id="saveNameChangesBtn" style="display: none;">Save Name Changes</button>
+                    </form>
+
+                    <!-- تعديل الوصف (Description) -->
+                    <form method="post" asp-action="EditDescription" id="editDescriptionForm">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <div class="d-flex justify-content-between">
+                                <textarea class="form-control" id="Description" name="Description" rows="3" readonly>@Model.Description</textarea>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-warning" id="editDescription">Edit</a>
+                            </div>
+                        </div>
+
+                        <!-- زر حفظ التعديلات الخاص بالـ Description -->
+                        <button type="submit" class="btn btn-success btn-block mt-3" id="saveDescriptionChangesBtn" style="display: none;">Save Description Changes</button>
+                    </form>
+
+                    <!-- تعديل السيرة الذاتية (Bio) -->
+                    <form method="post" asp-action="EditBio" id="editBioForm">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label for="Bio">Bio</label>
+                            <div class="d-flex justify-content-between">
+                                <textarea class="form-control" id="Bio" name="Bio" rows="5" readonly>@Model.Bio</textarea>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-warning" id="editBio">Edit</a>
+                            </div>
+                        </div>
+
+                        <!-- زر حفظ التعديلات الخاص بالـ Bio -->
+                        <button type="submit" class="btn btn-success btn-block mt-3" id="saveBioChangesBtn" style="display: none;">Save Bio Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // تفعيل تعديل الاسم
+        document.getElementById("editName").addEventListener("click", function () {
+            var nameField = document.getElementById("Name");
+            var saveNameBtn = document.getElementById("saveNameChangesBtn");
+
+            nameField.readOnly = !nameField.readOnly;
+            saveNameBtn.style.display = nameField.readOnly ? "none" : "inline-block";
+        });
+
+        // تفعيل تعديل الوصف (Description)
+        document.getElementById("editDescription").addEventListener("click", function () {
+            var descriptionField = document.getElementById("Description");
+            var saveDescriptionBtn = document.getElementById("saveDescriptionChangesBtn");
+
+            descriptionField.readOnly = !descriptionField.readOnly;
+            saveDescriptionBtn.style.display = descriptionField.readOnly ? "none" : "inline-block";
+        });
+
+        // تفعيل تعديل السيرة الذاتية (Bio)
+        document.getElementById("editBio").addEventListener("click", function () {
+            var bioField = document.getElementById("Bio");
+            var saveBioBtn = document.getElementById("saveBioChangesBtn");
+
+            bioField.readOnly = !bioField.readOnly;
+            saveBioBtn.style.display = bioField.readOnly ? "none" : "inline-block";
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .profile-picture {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+}

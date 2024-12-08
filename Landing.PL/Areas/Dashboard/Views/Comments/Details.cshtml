@@ -1,0 +1,27 @@
+﻿@model Landing.PL.Areas.Dashboard.ViewModel.CommentDetailVM
+
+@section Header {
+        Details of Comment
+}
+
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Details Item @Model.Name Comment </h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form>
+            <ul>
+                <li>Name is : @Model.Name</li>
+                <li>Content is : @Model.Content </li>
+                <li>Created At is : @Model.DatePosted</li>
+                <li>Profile is : @Model.Profile.Name</li>
+            </ul>
+
+
+        </form>
+    </div>
+    <a asp-action="Index" class="btn btn-primary">Back To List</a>
+</div>

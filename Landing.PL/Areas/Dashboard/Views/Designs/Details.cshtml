@@ -1,0 +1,28 @@
+﻿@model DesignDetails
+
+@section Header {
+        Details of Item
+}
+
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Details Item @Model.Name</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form>
+            <ul>
+                <li>Name is : @Model.Name</li>
+                <li>Description is : @Model.Description</li>
+                <li>Status is : @(Model.IsDeleted ? "Deleted" : "Active")</li>
+                <li>CreatedAt is : @Model.CreatedAt</li>
+                <li>Flaticon is : @Model.Flaticon.Name</li>
+            </ul>
+
+
+        </form>
+    </div>
+    <a asp-action="Index" class="btn btn-primary">Back To List</a>
+</div>

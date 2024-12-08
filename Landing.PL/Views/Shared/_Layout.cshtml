@@ -1,50 +1,361 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
+ 
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Landing.PL</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Landing.PL.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <title>iDESIGN - Interior Design HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <link rel="icon" href="/path-to-your-icon/favicon.ico" type="image/x-icon">
+    <!-- Favicon -->
+   
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="~/lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+   
+    @* <link href="~/lib/owlcarousel/assets/owl.carousel.css" rel="stylesheet"> *@
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    @RenderSection("Styles", false)
+    
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Landing.PL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+    
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        
+                        <a class="text-white px-3" asp-controller="Account" asp-action="LogOut">LogOut</a>
+                        <span class="text-white">|</span>
+                        @if(User.IsInRole("Admin")|| @User.IsInRole("SuperAdmin")){
+                       
+                            <a class="text-white px-3" asp-controller="Designs" asp-action="Index" asp-area="Dashboard">Dashboard</a>
+                            <span class="text-white">|</span>
+                        }
+                        
+                        <a class="text-white px-3" asp-controller="PProfiles" asp-action="Index">Profile</a>
+                        <span class="text-white">|</span>
+                        
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <div b-n0568tor2z="" class="d-inline-flex align-items-center">
+                            @if (ViewBag.social is not null)
+                            {
+                                 
+                                string socialName = "";
+                            
+                            foreach (var item in ViewBag.social)
+                            {
+                                    if (item.IsOwner)
+                                    {
+
+                                        if (item.SocialName == "Facebook" || item.SocialName == "facebook")
+                                        {
+                                            socialName = "facebook-f";
+                                        }
+                                        else if (item.SocialName == "Twitter" || item.SocialName == "twitter")
+                                        {
+                                            socialName = "twitter";
+                                        }
+
+                                        else if (item.SocialName == "Linkedin" || item.SocialName == "linkedin")
+                                        {
+                                            socialName = "linkedin-in";
+                                        }
+
+                                        else if (item.SocialName == "Instagram" || item.SocialName == "instagram")
+                                        {
+                                            socialName = "instagram";
+                                        }
+                                        else if (item.SocialName == "Youtube" || item.SocialName == "youtube")
+                                        {
+                                            socialName = "youtube";
+                                        }
+
+
+                                        <a class="text-white px-3" href="@Html.Raw(item.Url.Replace("<p>", "").Replace("</p>", "").Trim())" target="_blank">
+                                            <i class="fab fa-@socialName"></i>
+                                        </a>
+                                    }
+
+                            }
+                            }
+                           
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container position-relative" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
+                <a href="" class="navbar-brand">
+                    <h1 class="m-0 display-5 text-white"><span class="text-primary">i</span>DESIGN</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link ">Home</a>
+                        <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
+                        <a asp-controller="Home" asp-action="Service" class="nav-item nav-link">Service</a>
+                        <a asp-controller="Home" asp-action="Project" class="nav-item nav-link">Project</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a asp-controller="Home" asp-action="OutBlog" class="dropdown-item">Blog Grid</a>
+                                <a asp-controller="Home" asp-action="BlogDetail" class="dropdown-item">Blog Detail</a>
+                            </div>
+                        </div>
+                        <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- Under Nav Start -->
+    <div class="container-fluid bg-white py-3">
+        <div class="container">
+            <div class="row">
+                @if(ViewBag.info is not null){
+                    string infoName = "";
+                   
+                    foreach (var item in ViewBag.info)
+                    {
+                        if (item.Name.Equals("Our Office", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Office", StringComparison.OrdinalIgnoreCase) )
+                        {
+                            infoName = "office";
+                        }
+                        else if (item.Name.Equals("Our Email", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email", StringComparison.OrdinalIgnoreCase))
+                        {
+                            infoName = "email";
+                        }
+
+                        else if (item.Name.Equals("Call Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Call", StringComparison.OrdinalIgnoreCase))
+                        {
+                            infoName = "telephone";
+                        }
+
+                      
+                        <div class="col-lg-4 text-left mb-3 mb-lg-0">
+
+                            <div class="d-inline-flex text-left">
+                                <h1 class="flaticon-@infoName font-weight-normal text-primary m-0 mr-3"></h1>
+                                <div class="d-flex flex-column">
+                                    <h5>@item.Name</h5>
+                                    <p class="m-0">@Html.Raw(@item.Content)</p>
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+                
+             
+            </div>
+        </div>
+    </div>
+    <!-- Under Nav End -->
+    <!-- Carousel Start -->
+    
+
+    <main id="main">
+        @RenderBody()
         </main>
+   
+    
+
+
+    <!-- Carousel End -->
+    <!-- About Start -->
+    
+    <!-- About End -->
+    <!-- Services Start -->
+    
+    <!-- Services End -->
+    <!-- Features Start -->
+   
+    <!-- Features End -->
+    <!-- Projects Start -->
+    
+    <!-- Projects End -->
+    <!-- Team Start -->
+    
+    <!-- Team End -->
+    <!-- Testimonial Start -->
+   
+    <!-- Testimonial End -->
+    <!-- Blog Start -->
+   
+    <!-- Blog End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <!-- العمود الأول: Get In Touch -->
+            <div class="col-lg-3 col-md-6 mb-5 text-center">
+                <h4 class="text-primary mb-4">Get In Touch</h4>
+                @if (ViewBag.info is not null)
+                {
+                    string infoName = "";
+
+                    foreach (var item in ViewBag.info)
+                    {
+                        if (item.Name.Equals("Our Office", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Office", StringComparison.OrdinalIgnoreCase))
+                        {
+                            infoName = "map-marker-alt mr-2";
+                        }
+                        else if (item.Name.Equals("Our Email", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Email", StringComparison.OrdinalIgnoreCase))
+                        {
+                            infoName = "envelope mr-2";
+                        }
+                        else if (item.Name.Equals("Call Us", StringComparison.OrdinalIgnoreCase) || item.Name.Equals("Call", StringComparison.OrdinalIgnoreCase))
+                        {
+                            infoName = "phone-alt mr-2";
+                        }
+                        <p><i class="fa fa-@infoName"></i>@Html.Raw(item.Content)</p>
+                    }
+                }
+
+                <div class="d-flex justify-content-center mt-4">
+                    @if (ViewBag.social is not null)
+                    {
+                        string socialName = "";
+
+                        foreach (var item in ViewBag.social)
+                        {
+                            if (item.IsOwner)
+                            {
+                                if (item.SocialName == "Facebook" || item.SocialName == "facebook")
+                                {
+                                    socialName = "facebook-f";
+                                }
+                                else if (item.SocialName == "Twitter" || item.SocialName == "twitter")
+                                {
+                                    socialName = "twitter";
+                                }
+                                else if (item.SocialName == "Linkedin" || item.SocialName == "linkedin")
+                                {
+                                    socialName = "linkedin-in";
+                                }
+                                else if (item.SocialName == "Instagram" || item.SocialName == "instagram")
+                                {
+                                    socialName = "instagram";
+                                }
+                                else if (item.SocialName == "Youtube" || item.SocialName == "youtube")
+                                {
+                                    socialName = "youtube";
+                                }
+
+                                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 38px; height: 38px;" href="@Html.Raw(item.Url.Replace("<p>", "").Replace("</p>", "").Trim())" target="_blank"> <i class="fab fa-@socialName"></i></a>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- العمود الثاني: Quick Links -->
+            <div class="col-lg-3 col-md-6 mb-5 text-center">
+                <h4 class="text-primary mb-4">Quick Links</h4>
+                <div class="d-flex flex-column justify-content-center">
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Index"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="About"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Service"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Project"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
+                    <a class="text-white" asp-controller="Home" asp-action="Contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                </div>
+            </div>
+
+            <!-- العمود الثالث: Popular Links -->
+            <div class="col-lg-3 col-md-6 mb-5 text-center">
+                <h4 class="text-primary mb-4">Popular Links</h4>
+                <div class="d-flex flex-column justify-content-center">
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Index"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="About"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Service"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
+                    <a class="text-white mb-2" asp-controller="Home" asp-action="Project"><i class="fa fa-angle-right mr-2"></i>Our Projects</a>
+                    <a class="text-white" asp-controller="Home" asp-action="Contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفوتر النهائي -->
+        <div class="container border-top border-secondary pt-5">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-white font-weight-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed by
+                <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+            </p>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Landing.PL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  
+
+
+    <!-- JavaScript Libraries -->
+    @* <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+    <!-- Contact Javascript File -->
+    <script src="~/mail/jqBootstrapValidation.min.js"></script>
+    <script src="~/mail/contact.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+
+   
 </body>
+
 </html>
+
+
+@await RenderSectionAsync("Scripts", required: false)

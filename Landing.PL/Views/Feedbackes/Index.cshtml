@@ -1,0 +1,51 @@
+﻿@model Feedback
+
+<!-- إضافة تنسيق لتوسيط النموذج في الصفحة -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Submit Your Feedback</h2>
+            <form method="post" asp-action="AddFeedback">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Job" class="control-label"></label>
+                    <input asp-for="Job" class="form-control" />
+                    <span asp-validation-for="Job" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <!-- إضافة الـ ProfileId بشكل مخفي -->
+                <input type="hidden" asp-for="PProfileId" />
+
+                <button type="submit" class="btn btn-primary btn-block">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- إضافة تنسيق باستخدام CSS لجعل الصفحة أكثر جمالاً -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    .form-control {
+        border-radius: 5px;
+    }
+    .btn-block {
+        padding: 10px;
+        font-size: 16px;
+    }
+</style>

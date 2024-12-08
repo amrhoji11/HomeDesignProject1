@@ -1,0 +1,28 @@
+﻿@model InfoVM
+
+@section Header {
+        Details of Information
+}
+
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Details Information @Model.Name</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form>
+            <ul>
+                <li>Name is : @Model.Name</li>
+                <li>Content is : @Html.Raw(Model.Content)</li>
+               
+               
+               
+            </ul>
+
+
+        </form>
+    </div>
+    <a asp-action="Index" class="btn btn-primary">Back To List</a>
+</div>

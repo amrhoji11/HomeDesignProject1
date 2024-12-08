@@ -1,0 +1,58 @@
+﻿@model SocialVM
+
+
+@section Header {
+     Socials
+}
+<div class="col-md-12">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Create Social</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form asp-controller="Socials" asp-action="Create">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="SocialName"></label>
+                    <input asp-for="SocialName" class="form-control" placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Url"></label>
+                    <input asp-for="Url" class="form-control textarea" placeholder="Enter Url">
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsOwner"></label>
+                    <input asp-for="IsOwner" >
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ApplecationUserId">Select OutTeam</label>
+                    <select asp-for="ApplecationUserId" class="form-control" asp-items="ViewBag.User">
+                        <option value="">--Select OutTeam--</option>
+                    </select>
+                </div>
+
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index" class="btn btn-primary">Back To List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/mu9ixsvggd9zw9yn47gmbp6yjtz6n237ile1t45zm1y1s3r2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+
+        tinymce.init({
+            selector: '.textarea',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
+}
